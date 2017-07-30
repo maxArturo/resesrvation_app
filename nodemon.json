@@ -1,0 +1,6 @@
+{
+  "ext": ".js,.jsx",
+  "watch": "src",
+  "verbose": true,
+  "exec": "npm start"
+}
