@@ -1,14 +1,17 @@
 import 'babel-polyfill'
 import express from 'express'
 import helmet from 'helmet'
-import db from './db'
+import bodyParser from 'body-parser'
 
+import db from './db'
 import routes from './routes'
 
 const app = express()
 const port = process.env.PORT || 3000
 
 app.use(helmet())
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
 app.use('/reservations', routes.reservations)
 
 app.get('/', (req, res) => {

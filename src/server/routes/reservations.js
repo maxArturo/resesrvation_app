@@ -1,25 +1,16 @@
-import {getReservations} from '../db/reservations'
+import {getReservations, postReservation, deleteReservation} from '../lib/reservationHandler'
+
 const express = require('express')
 const router = express.Router()
 
 // get all the reservations
-router.get('/', async function (req, res) {
-  // handle default case
-  const reservations = await getReservations()
-  res.send(reservations)
-})
+router.get('/', getReservations)
 
 // get a reservation by id
-router.get('/:id', async function (req, res) {
-  // handle default case
-  const reservations = await getReservations(req.params.id)
-  res.send(reservations)
-})
+router.get('/:id', getReservations)
 
 // add a reservation
-router.post('/', (req, res) => {
-  res.send('About birds')
-})
+router.post('/', postReservation)
 
 // modify a reservation
 router.patch('/:id', (req, res) => {
@@ -27,8 +18,6 @@ router.patch('/:id', (req, res) => {
 })
 
 // delete a reservation
-router.delete('/:id', (req, res) => {
-  res.send('About birds')
-})
+router.delete('/:id', deleteReservation)
 
 export default router
