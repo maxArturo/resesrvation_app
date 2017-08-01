@@ -1,12 +1,17 @@
-import test from 'ava';
+import test from 'ava'
+import request from 'supertest'
+import app from '../../dist/server/index'
 
-test('foo', t => {
-	t.pass();
-});
+test('gets the main route', async function (t) {
+  const response = await request(app)
+    .get('/')
 
-test('bar', async t => {
-	const bar = Promise.resolve('bar');
+  t.is(200, response.status)
+})
 
-	t.is(await bar, 'bar');
-});
+test('throws 404 for unregistered routes', async function (t) {
+  const response = await request(app)
+    .get('/doesnt_exist')
 
+  t.is(404, response.status)
+})
