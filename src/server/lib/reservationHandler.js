@@ -17,14 +17,14 @@ export async function postReservation (req, res) {
       .send(`name, count, timeslot must all be present`)
   }
 
-  if (timeslot.length !== 10 || !timeslot.match(/\d{10}/)) {
+  if (timeslot.length !== 10 || !timeslot.match(/\d/)) {
     return res.status(400)
       .send('timeslot must be 10 digits (hour, day, month, year)')
   }
 
   try {
     const reservation = await addReservation(name, count, timeslot)
-    res.status(201).send(reservation)
+    return res.status(201).send(reservation)
   } catch (e) {
     return res.status(404)
       .send(e.message)
