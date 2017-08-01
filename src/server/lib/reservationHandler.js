@@ -6,7 +6,7 @@ export async function getReservations (req, res) {
     return res.status(404).send()
   }
 
-  res.send(reservations)
+  return res.send(reservations)
 }
 
 export async function postReservation (req, res) {
@@ -46,3 +46,5 @@ export async function deleteReservation (req, res) {
   }
   return res.status(204).send()
 }
+
+export default {getReservations, postReservation, deleteReservation}

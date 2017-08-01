@@ -24,6 +24,7 @@
     "babel-register": "^6.24.1",
     "nodemon": "^1.11.0",
     "precommit-hook": "^3.0.0",
+    "sinon": "^2.4.1",
     "standard": "^10.0.2",
     "supertest": "^3.0.0"
   },
@@ -37,5 +38,11 @@
   "pre-commit": [
     "lint",
     "test"
-  ]
+  ],
+  "ava": {
+    "require": [
+      "babel-polyfill",
+      "babel-register"
+    ]
+  }
 }
