@@ -18,21 +18,21 @@ test.afterEach(t => {
   t.context.sandbox.restore()
 })
 
-test.serial('getReservation sends 404 upon empty result', async function (t) {
+test.serial('getReservation sends 404 upon empty result', async t => {
   t.context.sandbox.stub(dbReservations, 'getReservations').returns(Promise.resolve(null))
 
   await reservationHandler.getReservations({params: {}}, t.context.res)
   t.truthy(t.context.res.status.calledWith(404))
 })
 
-test.serial('getReservation sends result', async function (t) {
+test.serial('getReservation sends result', async t => {
   t.context.sandbox.stub(dbReservations, 'getReservations').returns(Promise.resolve('something'))
   await reservationHandler.getReservations({params: {}}, t.context.res)
 
   t.truthy(t.context.sendStub.calledWith('something'))
 })
 
-test.serial('postReservation checks required params', async function (t) {
+test.serial('postReservation checks required params', async t => {
   t.context.sandbox.stub(dbReservations, 'addReservation').returns(Promise.resolve(''))
 
   const req = {query: {}}
@@ -42,7 +42,7 @@ test.serial('postReservation checks required params', async function (t) {
   t.true(dbReservations.addReservation.notCalled)
 })
 
-test.serial('postReservation checks timeslot at least 10 chars', async function (t) {
+test.serial('postReservation checks timeslot at least 10 chars', async t => {
   t.context.sandbox.stub(dbReservations, 'addReservation').returns(Promise.resolve(''))
 
   const req = {
@@ -59,7 +59,7 @@ test.serial('postReservation checks timeslot at least 10 chars', async function 
   t.true(dbReservations.addReservation.notCalled)
 })
 
-test.serial('postReservation succeeds', async function (t) {
+test.serial('postReservation succeeds', async t => {
   t.context.sandbox.stub(dbReservations, 'addReservation').returns(Promise.resolve('new reservation'))
 
   const req = {
@@ -76,7 +76,7 @@ test.serial('postReservation succeeds', async function (t) {
   t.true(dbReservations.addReservation.called)
 })
 
-test.serial('deleteReservation fails without id', async function (t) {
+test.serial('deleteReservation fails without id', async t => {
   t.context.sandbox.stub(dbReservations, 'deleteReservation').returns(null)
 
   const req = { params: {} }
@@ -87,7 +87,7 @@ test.serial('deleteReservation fails without id', async function (t) {
   t.true(dbReservations.deleteReservation.notCalled)
 })
 
-test.serial('deleteReservation fails with internal error', async function (t) {
+test.serial('deleteReservation fails with internal error', async t => {
   const rejectedPromise = Promise.reject(new Error('whops'))
   t.context.sandbox.stub(dbReservations, 'deleteReservation').returns(rejectedPromise)
 
@@ -109,7 +109,7 @@ test.serial('deleteReservation fails with not found', async function (t) {
   t.true(dbReservations.deleteReservation.called)
 })
 
-test.serial('deleteReservation succeeds', async function (t) {
+test.serial('deleteReservation succeeds', async t => {
   t.context.sandbox.stub(dbReservations, 'deleteReservation').returns(Promise.resolve('succeeded'))
 
   const req = { params: {id: 333} }
