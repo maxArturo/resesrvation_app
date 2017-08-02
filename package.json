@@ -13,6 +13,7 @@
     "babel-polyfill": "^6.23.0",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
     "express": "^4.15.3",
     "helmet": "^3.8.1",
     "moment": "^2.18.1",

@@ -22,6 +22,11 @@ export async function postReservation (req, res) {
       .send('timeslot must be 10 digits (hour, day, month, year)')
   }
 
+  if (+count < 0) {
+    return res.status(400)
+      .send('party size (count) cannot be negative')
+  }
+
   try {
     const reservation = await addReservation(name, count, timeslot)
     return res.status(201).send(reservation)
